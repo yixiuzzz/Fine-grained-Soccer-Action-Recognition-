@@ -17,13 +17,13 @@ class DatasetTools(object):
         
         data_infos = []
         class_counts = {}
-        cls_folders = os.listdir(data_root) # train_data : 0, 1, 2, 3, none
-        cls_folders = [x for x in cls_folders if x != 'none'] # skip none folder
-        cls_folders.sort() # [0, 1, 2, 3]
+        cls_folders = os.listdir(data_root) 
+        cls_folders = [x for x in cls_folders if x != 'none']
+        cls_folders.sort() 
         
-        # 計算最大影片數量: max_n --> 平衡用
+
         for i in range(4):           
-            class_counts[str(i)] = 0 # 初始化 class_counts = {'0': 0, '1': 0, '2': 0, '3': 0}
+            class_counts[str(i)] = 0 # class_counts = {'0': 0, '1': 0, '2': 0, '3': 0}
 
         for i, folder in enumerate(cls_folders): 
 
@@ -36,12 +36,12 @@ class DatasetTools(object):
             elif i == 3:
                 label = 3
 
-            videos = os.listdir(data_root + '/' + folder + '/') # /train_data/0/0~... 影片資料夾
+            videos = os.listdir(data_root + '/' + folder + '/') 
 
             for video in videos:
-                class_counts[str(label)] += 1  # class_counts = {'0': 482, '1': 195 ...} 資料夾數量
+                class_counts[str(label)] += 1 
 
-        max_n = max([class_counts[name] for name in class_counts]) # [482, 195, ...] 
+        max_n = max([class_counts[name] for name in class_counts]) 
 
 
         # balance data
@@ -56,11 +56,11 @@ class DatasetTools(object):
             elif i == 3:
                 label = 3
 
-            videos = os.listdir(data_root + '/' + folder + '/') # /train_data/0/0~... 影片資料夾
+            videos = os.listdir(data_root + '/' + folder + '/') 
 
             for video in videos: # data_infos
                 tmp = {
-                    'video_path': data_root + '/' + folder + '/' + video + '/',  # train_data/0/0/ (folder_path)
+                    'video_path': data_root + '/' + folder + '/' + video + '/',  
                     'label': label
                 }
 
@@ -74,14 +74,9 @@ class DatasetTools(object):
 
         return data_infos, class_counts
 
-        # data_infos: tmp = {
-        #             'video_path': data_root + '/' + folder + '/' + video + '/',  # train_data/0/0/ (image_folder_path)
-        #             'label': label
-        #         }
-
         
     def build_sequence_datainfo(self, 
-                                video_data_infos: list, # data_infos, class_counts
+                                video_data_infos: list, 
                                 clip_length: int) -> list: 
                         
         seq_data_infos = []
@@ -115,7 +110,7 @@ class DatasetTools(object):
 
                 seq_data_infos.append(tmp)  
                 class_counts[tmp['label']] += 1
-                # print(tmp) 
+
 
             else:
                 max_clips = n_frames // 16
@@ -133,7 +128,6 @@ class DatasetTools(object):
 
                     seq_data_infos.append(tmp)  
                     class_counts[tmp['label']] += 1 
-                    # print(tmp)
 
         return seq_data_infos, class_counts
 
@@ -142,9 +136,9 @@ class DatasetTools(object):
         clip = []
 
         for img_path in data_info['imgs']:
-            arr = cv2.imread(img_path) # Numpy array
-            arr = arr.astype(np.float32) # unit8(0~255) --> folat32 
-            t = torch.from_numpy(arr) # Numpy array --> PyTorch tesnor
+            arr = cv2.imread(img_path)
+            arr = arr.astype(np.float32) 
+            t = torch.from_numpy(arr) 
             t = t / 255.0 
             t = t.permute(2, 0, 1) # H, W, C -> C, H, W
             
@@ -181,7 +175,6 @@ class VideoDataset(torch.utils.data.Dataset):
                     transforms.ColorJitter(0.08, 0.08, 0.08, 0.02), # brightness, contrast, saturation, hue
                     transforms.RandomHorizontalFlip(),
                     transforms.RandomGrayscale(),
-                    # transforms.RandomAdjustSharpness(0.4),
                     transforms.Normalize(mean=[0.45, 0.45, 0.45], std=[0.225, 0.225, 0.225]),
                 ])
         else:
