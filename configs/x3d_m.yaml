@@ -8,7 +8,6 @@ train_root: '/home/aiot/Rity/split_data/data/train_data'
 test_root: '/home/aiot/Rity/split_data/data/test_data'
 clip_length: 16
 data_size: [112, 112] # H, W
-
 num_workers: 8
 batch_size: 16
 
@@ -39,10 +38,3 @@ eval_freq:
     '800': 5
     '900': 2
     '950': 1
-
-
-
-
-
-
-
