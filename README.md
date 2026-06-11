@@ -35,13 +35,19 @@ The system classifies player behaviors into four distinct categories, utilizing 
 
 
 ## Performance Comparison
-We benchmarked our proposed framework against the standard backbone network to evaluate both recognition accuracy and computational efficiency.
-
-
-| Model / Architecture | Overall Accuracy (%) | Params (M) | FLOPs (G) |
+- Overall Accuracy and computational efficiency
+  
+| Architecture | Overall Accuracy (%) | Params (M) | FLOPs (G) |
 | :--- | :---: | :---: | :---: | 
 | **Baseline** (X3D) | 88.03% | 3.0M | 20.82G | 
 | **Ours (with Motion Features)** | **91.80%** | **3.7M** | **21.78G** | 
 | *Improvement* | *+3.77%* | *+0.7M* | *+0.96G* |
 
+- Per-class precision
+  
+| Architecture | Idle | Kick | Fall | Move |
+| :--- | :---: | :---: | :---: | :---: | 
+| **Baseline** (X3D) | 88.75% | 75.43% | 87.30% | 90.4% |
+| **Ours (with Motion Features)** | **92.44%** | **89.28%** | **98.24%** | **90.44%** |
+| *Improvement* | *+3.69%* | *+13.85%* | *+10.94%* | *+0.04%* | 
 
