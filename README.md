@@ -1,6 +1,7 @@
 # ⚽ Efficient Fine-grained Soccer Action Recognition 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg)](https://opencv.org/)
 [![WandB](https://img.shields.io/badge/Weights_&_Biases-Tracked-yellow)](https://wandb.ai/)
 
 ## Overview
