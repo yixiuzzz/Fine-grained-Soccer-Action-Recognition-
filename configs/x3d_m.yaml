@@ -1,10 +1,10 @@
 project_name: "X3D"
 exp_name: 'X3D'
-use_wandb: True
-wandb_entity: rity
+use_wandb: False
+wandb_entity: 
 
 # dataset
-train_root: '/home/aiot/Rity/split_data/data/train_data'
+train_root: '/home/aiot/Rity/split_data/data/train_data' # Update the path to match your local setup
 test_root: '/home/aiot/Rity/split_data/data/test_data'
 clip_length: 16
 data_size: [112, 112] # H, W
@@ -23,7 +23,7 @@ warmup_batchs: 10
 wdecay: 0.0001
 momentum: 0.9
 # learning rate schedule setting
-lr_schedule:  
+lr_schedule:
     name: 'cosine_decay' # ['linear', 'step', 'cosine'] + '_decay or '_increase
     min_value: 0.000000000025
     max_value: 0.00025
