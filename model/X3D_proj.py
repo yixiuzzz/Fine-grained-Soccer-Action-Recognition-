@@ -30,38 +30,6 @@ class X3D(nn.Module):
                 )
 
 
-        # for stage in range(1, 5):  # stage 1 ~ 4
-        #     for i, res_block in enumerate(self.backbone.blocks[stage].res_blocks):
-        #         in_channels = res_block.branch2.conv_a.out_channels
-        #         action_module = Action(in_channels)  # 创建 Action 模组
-                
-        #         # 取出原始 BottleneckBlock
-        #         bottleneck = res_block.branch2 
-
-        #         bottleneck = nn.Sequential(
-        #             bottleneck.conv_a,
-        #             bottleneck.norm_a,
-        #             bottleneck.act_a,
-        #             action_module,  # 插入 Action 模块
-        #             bottleneck.conv_b,
-        #             bottleneck.norm_b,
-        #             bottleneck.act_b,
-        #             bottleneck.conv_c,  # 这里应该是 conv_c，而不是重复 conv_a
-        #             bottleneck.norm_c  # 这里应该是 norm_c，而不是重复 norm_a
-        #         )
-
-        #         # 重新赋值给 res_block.branch2
-        #         res_block.branch2 = bottleneck
-
-
-        #         # # 直接修改 bottleneck 內部，保持原本的結構
-        #         # bottleneck.conv_b = nn.Sequential(
-        #         #     action_module,   # 先加入 Action
-        #         #     bottleneck.conv_b  # 再接原本的 conv_b (3x3 Conv3D)
-        #         # )
-
-        
-
     def forward(self, x, mask=None):
         for i in range(5):
             x = self.backbone.blocks[i](x)  
@@ -87,8 +55,3 @@ if __name__ == "__main__":
     model = X3D(num_classes=4, model_size='m', torch_pretrained=False)
     with open('./x3d_m_structure.txt', 'w') as ftxt:
         ftxt.write(str(model))
-
-        print(model)
-
-
-       
