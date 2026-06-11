@@ -9,9 +9,7 @@ import torch.nn.functional as F
 import os
 
 from model.X3D import X3D
-
 from utils.io import extract_label_txt
-
 
 
 class Predictor(object):
@@ -43,6 +41,7 @@ class Predictor(object):
         'player_id' : player obj
         """
 
+    
     def preprocess_player(self, arr: np.ndarray): #square
         arr = arr.astype(np.float32)
         t = torch.from_numpy(arr)
@@ -84,9 +83,6 @@ class Predictor(object):
             x1, y1 = x0 + w, y0 + h
             x0, y0, x1, y1 = int(x0), int(y0), int(x1), int(y1)
 
-            # player locations
-            self.players[player_id].player_locs.append([x0, y0, x1, y1])
-
             # player frames
             player_frame = copy.deepcopy(frame)
             player_frame = player_frame[y0:y1, x0:x1]
@@ -99,10 +95,8 @@ class Predictor(object):
             # predict
             self.players[player_id].predict(frame_id, self.model)
 
-
         for player_id in label:
             self.players[player_id].plot(frame)
-
 
 
 class Player(object):
@@ -126,10 +120,10 @@ class Player(object):
             '3' : 'fall'
         }
         self.cls2color = {
-            'move': (0, 255, 0),  # 綠色
-            'idle': (0, 255, 255),  #黃色
-            'kick': (0, 0, 255),  # 紅色
-            'fall': (255, 0, 0) # 藍色
+            'move': (0, 255, 0),  # green
+            'idle': (0, 255, 255),  # yellow
+            'kick': (0, 0, 255),  # red
+            'fall': (255, 0, 0) # blue
         }
 
 
@@ -160,8 +154,6 @@ class Player(object):
         values = F.softmax(out, dim=-1)
         confidence = values.gather(1, pred.unsqueeze(1)).squeeze(1)  
 
-        # values = F.softmax(out, dim=-1)[0]
-        # confident = torch.max(values)
 
         self.this_pred = self.cls2name[str(pred.cpu().item())]
         self.conf = float(confidence.cpu().item())
@@ -181,7 +173,6 @@ class Player(object):
 
         # plot by last frame
         if self.this_pred is not None:
-        # if self.this_pred is not None and self.conf > 0.5:
             x0, y0, x1, y1 = self.player_locs[-1]
 
             color = self.cls2color[str(self.this_pred)]
@@ -190,18 +181,15 @@ class Player(object):
 
             msg = f"{self.player_id} : {self.this_pred}"
             cv2.putText(arr, msg, (x0, y0 - 5), 1, 2, color, 2, 1)
-            #conf
+            
+            # conf
             cv2.putText(arr, f"{self.conf:.2f}", (x0, y0 - 30), 1, 2, color, 2, 1)
 
             self.this_pred = None
             self.conf = None
 
 
-
-
-
 if __name__ == "__main__":
-
 
     test_game_index = 9 # folder name
     test_game = f'./{test_game_index}/' 
@@ -216,8 +204,6 @@ if __name__ == "__main__":
 
         if os.path.isdir(folder_path):
             test_number = folder
-
-            # test_number = 1
 
             test_label_path = test_game + f'{test_number}.txt'
             test_img_root = test_game + f'{test_number}/'
@@ -235,8 +221,8 @@ if __name__ == "__main__":
             max_frame_id = max([int(x) for x in labels])
 
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+            
             # save_root
-            # video_writer = cv2.VideoWriter(f'./video/v22/{test_game_index}-{test_number}.mp4', fourcc, 10.0, [1280, 720])
             video_writer = cv2.VideoWriter(f'{save_root}{test_game_index}-{test_number}.mp4', fourcc, 10.0, (1280, 720))
             
             pbar = tqdm.tqdm(total=max_frame_id, ascii=True)
@@ -250,8 +236,6 @@ if __name__ == "__main__":
 
                 # show frame
                 cv2.putText(arr, f'frame: {frame_id}', (10, 30), 1, 2, (0, 0, 255), 2, 1)
-                # cv2.namedWindow('frame', 0)
-                # cv2.imshow('frame', arr)
                 cv2.waitKey(33)
                 
                 video_writer.write(arr)
@@ -260,4 +244,3 @@ if __name__ == "__main__":
             video_writer.release()
 
             pbar.close()
-
