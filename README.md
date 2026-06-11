@@ -23,7 +23,7 @@ To address this, our framework extracts **robust motion features** to significan
 
 
 ## Demo
-The system utilizes distinct bounding box colors to real-time display different player actions.
+The system classifies player behaviors into four distinct categories, utilizing unique bounding box colors to display the actions in real time:
 * <font color="green">**Gree:**</font> Moving
 * <font color="yellow">**Yello:**</font> Standing
 * <font color="red">**Red :**</font> Kicking
@@ -34,6 +34,14 @@ The system utilizes distinct bounding box colors to real-time display different 
 </p>
 
 
----
 ## Performance Comparison
+We benchmarked our proposed framework against the standard backbone network to evaluate both recognition accuracy and computational efficiency.
+
+
+| Model / Architecture | Overall Accuracy (%) | Params (M) | FLOPs (G) |
+| :--- | :---: | :---: | :---: | 
+| **Baseline** (X3D) | 88.03% | 3.0M | 20.82G | 
+| **Ours (with Motion Features)** | **91.80%** | **3.7M** | **21.78G** | 
+| *Improvement* | *+3.77%* | *+0.7M* | *+0.96G* |
+
 
