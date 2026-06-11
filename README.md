@@ -24,10 +24,10 @@ To address this, our framework extracts **robust motion features** to significan
 
 ## Demo
 The system classifies player behaviors into four distinct categories, utilizing unique bounding box colors to display the actions in real time:
-* <font color="green">**Gree:**</font> Moving
-* <font color="yellow">**Yello:**</font> Standing
-* <font color="red">**Red :**</font> Kicking
-* <font color="blue">**Blue :**</font> Falling
+* **Green:**</font> Moving
+* **Yellow:**</font> Standing
+* **Red :**</font> Kicking
+* **Blue :**</font> Falling
 
 <p align="center">
   <img width="800" height="450" alt="9-23-ezgif com-cut" src="https://github.com/user-attachments/assets/60ab13e2-af42-4951-a4b8-c6ca441910fa" />
@@ -35,19 +35,20 @@ The system classifies player behaviors into four distinct categories, utilizing 
 
 
 ## Performance Comparison
-- Overall Accuracy and computational efficiency
+
+### 1. Overall Accuracy & computational efficiency
   
 | Architecture | Overall Accuracy (%) | Params (M) | FLOPs (G) |
 | :--- | :---: | :---: | :---: | 
 | **Baseline** (X3D) | 88.03% | 3.0M | 20.82G | 
 | **Ours (with Motion Features)** | **91.80%** | **3.7M** | **21.78G** | 
-| *Improvement* | *+3.77%* | *+0.7M* | *+0.96G* |
+| *Improvement* | *+3.77%* | *+0.70M* | *+0.96G* |
 
-- Per-class precision
+### 2. Per-class Precision
   
 | Architecture | Idle | Kick | Fall | Move |
 | :--- | :---: | :---: | :---: | :---: | 
-| **Baseline** (X3D) | 88.75% | 75.43% | 87.30% | 90.4% |
+| **Baseline** (X3D) | 88.75% | 75.43% | 87.30% | 90.40% |
 | **Ours (with Motion Features)** | **92.44%** | **89.28%** | **98.24%** | **90.44%** |
 | *Improvement* | *+3.69%* | *+13.85%* | *+10.94%* | *+0.04%* | 
 
