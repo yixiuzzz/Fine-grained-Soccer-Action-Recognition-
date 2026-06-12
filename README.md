@@ -19,8 +19,12 @@ Fine-grained soccer action recognition suffers from **low inter-class variance**
   <br>
 </p>
 
-
 To address this, our framework extracts **robust motion features** to significantly enhance the backbone's ability to capture spatiotemporal cues. This approach allows the model to capture subtle motion nuances for accurate fine-grained classification, all while maintaining a **lightweight and highly efficient** footprint.
+<p align="center">
+  <img width="987" height="470" alt="截圖 2026-06-12 下午5 58 54" src="https://github.com/user-attachments/assets/3d26c49b-f6de-48a5-bab9-3903ecc754c4" width="40%" />
+  <br>
+</p>
+
 
 
 ## Demo
@@ -35,8 +39,10 @@ The system classifies player behaviors into four distinct categories, utilizing 
 </p>
 
 
-## Performance Comparison
 
+## Performance Comparison
+Dataset: [SoccerNet-v2](https://silviogiancola.github.io/SoccerNetv2/)
+  
 ### 1. Overall Accuracy & computational efficiency
   
 | Architecture | Overall Accuracy (%) | Params (M) | FLOPs (G) |
