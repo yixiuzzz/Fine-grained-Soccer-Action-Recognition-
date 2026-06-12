@@ -7,7 +7,7 @@
 ## Overview
 This is a lightweight and high-efficiency spatiotemporal video analysis system built upon the **PyTorch** framework. 
 
-The core architecture utilizes **X3D**, an advanced 3D convolutional neural network optimized to capture critical **motion features** from consecutive video frames. By processing temporal sequences, the system accurately classifies fine-grained, complex player behaviors within highly dynamic soccer broadcast scenarios.
+The core architecture utilizes **[X3D](https://arxiv.org/abs/2004.04730)**, an advanced 3D convolutional neural network optimized to capture critical **motion features** from consecutive video frames. By processing temporal sequences, the system accurately classifies fine-grained, complex player behaviors within highly dynamic soccer broadcast scenarios.
 
 
 
